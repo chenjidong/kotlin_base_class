@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- -->
+    <dimen name="dip_one">1dip</dimen>
+    <dimen name="dip_two">2dip</dimen>
+    <dimen name="dip_four">4dip</dimen>
+    <dimen name="dip_eight">8dip</dimen>
+    <dimen name="dip_ten">10dip</dimen>
+    <dimen name="dip_twelve">12dip</dimen>
+    <dimen name="dip_fourteen">14dip</dimen>
+    <dimen name="dip_sixteen">16dip</dimen>
+    <dimen name="dip_eighteen">18dip</dimen>
+    <dimen name="dip_twenty_four">24dip</dimen>
+    <dimen name="dip_thirty_two">32dip</dimen>
+    <dimen name="dip_thirty_six">36dip</dimen>
+    <dimen name="dip_forty">40dip</dimen>
+    <dimen name="dip_forty_eight">48dip</dimen>
+    <dimen name="dip_fifty_six">56dip</dimen>
+    <dimen name="dip_seventy_two">72dip</dimen>
+    <dimen name="dip_ninety_six">96dip</dimen>
+    <dimen name="dip_one_hundred_twelve">112dip</dimen>
+    <!-- -->
+    <dimen name="sp_ten">10sp</dimen>
+    <dimen name="sp_twelve">12sp</dimen>
+    <dimen name="sp_fourteen">14sp</dimen>
+    <dimen name="sp_sixteen">16sp</dimen>
+    <dimen name="sp_eighteen">18sp</dimen>
+    <dimen name="sp_twenty">20sp</dimen>
+    <dimen name="sp_twenty_four">24sp</dimen>
+    <dimen name="sp_thirty_four">34sp</dimen>
+    <dimen name="sp_forty_five">45sp</dimen>
+    <dimen name="sp_fifty_six">56sp</dimen>
+    <!-- -->
+    <dimen name="base_toolbar_height">@dimen/dip_fifty_six</dimen>
+    <dimen name="tab_bar_height">48dip</dimen>
+    <dimen name="status_bar_height">24dip</dimen>
+
+</resources>

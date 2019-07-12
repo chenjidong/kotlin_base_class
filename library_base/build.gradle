@@ -1,0 +1,55 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+def configs = rootProject.ext
+
+android {
+    compileSdkVersion configs.android.compileSdkVersion
+
+
+    defaultConfig {
+        minSdkVersion configs.android.minSdkVersion
+        targetSdkVersion configs.android.targetSdkVersion
+        versionCode configs.android.versionCode
+        versionName configs.android.versionName
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+
+    api configs.dependencies.kotlinStdlibJdk7
+    api configs.dependencies.appcompatV7
+    api configs.dependencies.constraintLayout
+    api configs.dependencies.design
+
+    testApi configs.dependencies.junit
+    androidTestApi configs.dependencies.runner
+    androidTestApi configs.dependencies.espressoCore
+
+    api configs.dependencies.gson
+    api configs.dependencies.retrofit
+    api configs.dependencies.retrofitGson
+    api configs.dependencies.retrofitAdapter
+    api configs.dependencies.eventbus
+    api configs.dependencies.rxandroid
+    api configs.dependencies.rxjava
+
+    /**
+     * LeakCanary
+     */
+    debugApi configs.dependencies.leakcanaryAndroid
+    releaseApi configs.dependencies.leakcanaryAndroidNoOp
+
+}
