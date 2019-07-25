@@ -1,7 +1,7 @@
 ext {
     android = [
             compileSdkVersion: 28,
-            minSdkVersion    : 19,//身份识别sdk 最低
+            minSdkVersion    : 16,
             targetSdkVersion : 28,
             versionCode      : 1,
             versionName      : '1.0.0'
