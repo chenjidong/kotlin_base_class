@@ -2,6 +2,7 @@ package com.cjd.kotlin_tool
 
 import com.cjd.base.BaseApplication
 import com.cjd.base.utils.RetrofitUtils
+import io.reactivex.plugins.RxJavaPlugins
 
 /**
  * @Author chenjidong
@@ -14,5 +15,9 @@ class ProjectApplication : BaseApplication() {
     override fun onCreate() {
         super.onCreate()
         RetrofitUtils.init(this, "http://callshow.buypanamera.com")
+
+        RxJavaPlugins.setErrorHandler {
+
+        }
     }
 }

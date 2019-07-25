@@ -16,12 +16,13 @@ public class RetrofitUtils {
 
     private static Retrofit retrofit = null;
     private static String BASE_URL = null;
+    private static RetrofitUtils instance;
 
     private RetrofitUtils() {
 
     }
 
-    public static String getBaseUrl() {
+    public String getBaseUrl() {
         return BASE_URL;
     }
 
@@ -40,9 +41,24 @@ public class RetrofitUtils {
         }
     }
 
+    public static RetrofitUtils getInstance() {
+        if (instance == null) {
+            synchronized (RetrofitUtils.class) {
+                if (instance == null) {
+                    instance = new RetrofitUtils();
+                }
+            }
+        }
+        return instance;
+    }
+
     public static Retrofit getRetrofit() {
         if (retrofit == null)
             throw new RuntimeException("please on application init!");
         return retrofit;
+    }
+
+    public <T> T create(Class<T> clazz) {
+        return getRetrofit().create(clazz);
     }
 }

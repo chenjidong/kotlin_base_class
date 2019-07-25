@@ -13,7 +13,7 @@ object PreferencesHelper {
     private const val preferencesName = "json_data"
 
     @JvmStatic
-    fun storeData(context: Context, key: String, value: Any) {
+    fun storeData(context: Context, key: String, value: Any?) {
         val sp = context.getSharedPreferences(preferencesName, Context.MODE_PRIVATE)
         when (value) {
             is String -> sp.edit().putString(key, value.toString()).apply()
@@ -25,7 +25,7 @@ object PreferencesHelper {
     }
 
     @JvmStatic
-    fun storeJsonData(context: Context, key: String, value: Any) {
+    fun storeJsonData(context: Context, key: String, value: Any?) {
         val sp = context.getSharedPreferences(preferencesName, Context.MODE_PRIVATE)
         sp.edit().putString(key, GsonUtils.instance().toJson(value)).apply()
     }

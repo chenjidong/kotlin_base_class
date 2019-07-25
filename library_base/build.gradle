@@ -45,6 +45,8 @@ dependencies {
     api configs.dependencies.eventbus
     api configs.dependencies.rxandroid
     api configs.dependencies.rxjava
+    api configs.dependencies.multidex
+    api configs.dependencies.glide
 
     /**
      * LeakCanary

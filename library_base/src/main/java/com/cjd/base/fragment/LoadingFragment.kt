@@ -2,9 +2,7 @@ package com.cjd.base.fragment
 
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import com.cjd.base.R
 
@@ -16,6 +14,12 @@ import com.cjd.base.R
  */
 class LoadingFragment : BaseDialogFragment() {
 
+    override fun getLayoutResId() = R.layout.base_dialog_loading
+
+    override fun initData(view: View) {
+        init(view)
+    }
+
     companion object {
         @JvmStatic
         fun newInstance(text: String, isCancelable: Boolean): LoadingFragment {
@@ -26,16 +30,6 @@ class LoadingFragment : BaseDialogFragment() {
             fragment.isCancelable = isCancelable
             return fragment
         }
-    }
-
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.base_dialog_loading, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        init(view)
     }
 
     private fun init(view: View) {

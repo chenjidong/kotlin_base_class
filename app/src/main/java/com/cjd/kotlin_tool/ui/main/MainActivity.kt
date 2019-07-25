@@ -1,7 +1,5 @@
 package com.cjd.kotlin_tool.ui.main
 
-import android.annotation.SuppressLint
-import android.os.Bundle
 import android.os.Handler
 import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
@@ -24,20 +22,16 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 class MainActivity : BaseActivity() {
+    override fun getLayoutResId() = R.layout.activity_main
 
-
-    @SuppressLint("CheckResult")
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
+    override fun initData() {
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", View.OnClickListener {
+                    .setAction("Action", View.OnClickListener {
 
-                }).show()
+                    }).show()
         }
 
         val listener = object : com.cjd.base.listener.OnPermissionListener {
@@ -57,12 +51,12 @@ class MainActivity : BaseActivity() {
         Handler().postDelayed(Runnable { showWaitingDialog("123", true) }, 2000)
 
         RetrofitUtils.getRetrofit().create(IMainApiService::class.java).getMain()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { LogUtils.d(it.string()) },
-                { LogUtils.d(it.message) },
-                { LogUtils.d("compile") })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { LogUtils.d(it.string()) },
+                        { LogUtils.d(it.message) },
+                        { LogUtils.d("compile") })
 
         rv.layoutManager = LinearLayoutManager(this)
         val adapter = MainAdapter(this)
@@ -72,7 +66,7 @@ class MainActivity : BaseActivity() {
         for (value in 1..10) {
             list.add(value.toString())
         }
-        adapter.list = list
+        adapter.replaceAll(list)
     }
 
     override fun hasEvent(): Boolean {

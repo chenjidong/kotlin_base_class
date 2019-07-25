@@ -1,7 +1,6 @@
 package com.cjd.kotlin_tool.ui.main
 
 import android.content.Intent
-import android.os.Bundle
 import android.os.Handler
 import com.cjd.base.activity.BaseActivity
 import com.cjd.kotlin_tool.R
@@ -13,10 +12,9 @@ import com.cjd.kotlin_tool.R
  * description
  */
 class SplashActivity : BaseActivity() {
+    override fun getLayoutResId() = R.layout.main_activity_splash
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity_splash)
+    override fun initData() {
         init()
     }
 

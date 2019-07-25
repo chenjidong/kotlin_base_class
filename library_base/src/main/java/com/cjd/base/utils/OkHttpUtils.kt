@@ -26,7 +26,7 @@ object OkHttpUtils {
     private const val CACHE_DIRECTORY = "_http_cache"
     private const val CACHE_SIZE = 32 * 1024 * 1024
 
-    const val AUTH = "Auth"
+    const val AUTH = "Authorization"
     const val USER_AGENT = "User-Agent"
     const val CACHE_CONTROL = "Cache-Control"//HTTP 1.1
     const val CACHE_CONTROL_ONLY_CACHED = "public, only-if-cached, max-stale=2419200"
@@ -49,14 +49,14 @@ object OkHttpUtils {
                     val cacheFile = File(context.cacheDir, CACHE_DIRECTORY)
                     val cache = Cache(cacheFile, CACHE_SIZE.toLong())
                     client = OkHttpClient.Builder()
-                        .dispatcher(dispatcher)
-                        .cache(cache).connectTimeout(CONNECT_TIME_OUE.toLong(), TimeUnit.SECONDS)
-                        .writeTimeout(WRITE_TIME_OUT.toLong(), TimeUnit.SECONDS)
-                        .readTimeout(READ_TIME_OUT.toLong(), TimeUnit.SECONDS)
-                        .connectionPool(ConnectionPool(100, 30, TimeUnit.SECONDS))
-                        .addInterceptor(LogInterceptor())
-                        .addNetworkInterceptor(AuthInterceptor(context))
-                        .build()
+                            .dispatcher(dispatcher)
+                            .cache(cache).connectTimeout(CONNECT_TIME_OUE.toLong(), TimeUnit.SECONDS)
+                            .writeTimeout(WRITE_TIME_OUT.toLong(), TimeUnit.SECONDS)
+                            .readTimeout(READ_TIME_OUT.toLong(), TimeUnit.SECONDS)
+                            .connectionPool(ConnectionPool(100, 30, TimeUnit.SECONDS))
+                            .addInterceptor(LogInterceptor())
+                            .addNetworkInterceptor(AuthInterceptor(context))
+                            .build()
                 }
             }
         }
@@ -88,10 +88,10 @@ object OkHttpUtils {
             builder = request?.newBuilder()
 
             val auth: String? = PreferencesHelper.getString(context, AUTH, "")
-            builder?.addHeader(AUTH, auth)
+            if (auth != "")
+                builder?.addHeader(AUTH, "bearer $auth")
 
             request = builder?.build()
-
             return chain.proceed(request)
         }
     }
@@ -103,7 +103,7 @@ object OkHttpUtils {
             if (response.code() != HttpURLConnection.HTTP_OK) {
                 EventBus.getDefault().post(HttpRequestEvent(response.code()))
             }
-            LogUtils.d(GsonUtils.instance().toJson(response.body()))
+            LogUtils.d("--->request:" + response.request().method() + ":" + response.code() + ":" + response.request().url())
 
             return response
         }

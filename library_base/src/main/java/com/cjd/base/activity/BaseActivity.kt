@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import com.cjd.base.fragment.LoadingFragment
 import com.cjd.base.listener.OnPermissionListener
 import com.cjd.base.utils.AppManager
+import com.cjd.base.utils.LogUtils
 import org.greenrobot.eventbus.EventBus
 import java.util.*
 
@@ -20,15 +21,21 @@ import java.util.*
  */
 abstract class BaseActivity : AppCompatActivity() {
     private val waitingTag: String = "Waiting"
-    private val requstPermissionSendCode = 10010
+    private val requestPermissionSendCode = 10010
     private var permissionListener: OnPermissionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(getLayoutResId())
         AppManager.addActivity(this)
         if (hasEvent())
             EventBus.getDefault().register(this)
+        initData()
     }
+
+    protected abstract fun getLayoutResId(): Int
+
+    protected abstract fun initData()
 
     override fun onDestroy() {
         super.onDestroy()
@@ -61,13 +68,13 @@ abstract class BaseActivity : AppCompatActivity() {
         if (deniedPermissions.isEmpty()) {
             listener?.onGranted()
         } else {
-            ActivityCompat.requestPermissions(top, deniedPermissions.toTypedArray(), requstPermissionSendCode)
+            ActivityCompat.requestPermissions(top, deniedPermissions.toTypedArray(), requestPermissionSendCode)
         }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requstPermissionSendCode == requestCode) {
+        if (requestPermissionSendCode == requestCode) {
             val deniedPermissionList = ArrayList<String>()
             if (grantResults.isNotEmpty()) {
                 for (i in grantResults) {
@@ -93,8 +100,8 @@ abstract class BaseActivity : AppCompatActivity() {
         }
         if (!dialog.isAdded) {
             supportFragmentManager.beginTransaction()
-                .add(dialog, waitingTag)
-                .commitAllowingStateLoss()
+                    .add(dialog, waitingTag)
+                    .commitAllowingStateLoss()
         }
     }
 

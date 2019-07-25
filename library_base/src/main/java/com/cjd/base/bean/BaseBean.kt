@@ -8,7 +8,9 @@ import java.io.Serializable
  * created 2019/7/2
  * description
  */
-class BaseBean : Serializable {
+open class BaseBean : Serializable {
 
     var msg: String? = null
+
+    var code: Int? = 0
 }

@@ -1,8 +1,8 @@
 package com.cjd.base
 
-import android.app.Application
 import android.content.Context
 import android.content.pm.PackageManager
+import android.support.multidex.MultiDexApplication
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
 import java.nio.charset.Charset
@@ -14,7 +14,7 @@ import java.nio.charset.Charset
  * created 2019/7/4
  * description
  */
-open class BaseApplication : Application() {
+open class BaseApplication : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
@@ -67,6 +67,19 @@ open class BaseApplication : Application() {
 
             return result
         }
+    }
+
+    fun getSignature(context: Context): Int {
+        try {
+            val packageInfo = context.packageManager.getPackageInfo(context.packageName, PackageManager.GET_SIGNATURES)
+
+            val sign = packageInfo.signatures[0]
+            return sign.hashCode()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        return -1
     }
 
 }
